@@ -11,6 +11,17 @@ const normalizeSkills = (s) => {
   return [];
 };
 
+// ✅ GET Top 5 internships
+router.get("/top5", async (req, res, next) => {
+  try {
+    const internships = await Internship.find().sort({ createdAt: -1 }).limit(5);
+    return res.json(internships);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 // ✅ LIST + SEARCH + PAGINATION
 // GET /api/internships?skill=react&location=Remote&company=Google&page=1&limit=10&sort=createdAt
 router.get("/", async (req, res, next) => {
